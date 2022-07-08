@@ -95,17 +95,16 @@ class X2y2ContractWrapper extends ContractWrapper<X2y2> {
 
 export type X2y2Context = Context<X2y2, X2y2ContractWrapper>;
 
-class X2y2Processor_ extends BaseProcessor<X2y2, X2y2ContractWrapper> {
-  bind(address: string, network: Networkish = 1) {
+export class X2y2Processor extends BaseProcessor<X2y2, X2y2ContractWrapper> {
+  bindInternal(address: string, network: Networkish = 1) {
     const contract = X2y2__factory.connect(address, getProvider(network));
-    this.contract = new X2y2ContractWrapper(contract);
-    return this;
+    return new X2y2ContractWrapper(contract);
   }
 
   onCompound(
     handler: (event: CompoundEvent, ctx: X2y2Context) => void,
     filter?: CompoundEventFilter | CompoundEventFilter[]
-  ): X2y2Processor_ {
+  ): X2y2Processor {
     if (!filter) {
       filter = this.contract.filters.Compound(null, null);
     }
@@ -116,7 +115,7 @@ class X2y2Processor_ extends BaseProcessor<X2y2, X2y2ContractWrapper> {
   onDeposit(
     handler: (event: DepositEvent, ctx: X2y2Context) => void,
     filter?: DepositEventFilter | DepositEventFilter[]
-  ): X2y2Processor_ {
+  ): X2y2Processor {
     if (!filter) {
       filter = this.contract.filters.Deposit(null, null, null);
     }
@@ -127,7 +126,7 @@ class X2y2Processor_ extends BaseProcessor<X2y2, X2y2ContractWrapper> {
   onNewRewardsPerBlock(
     handler: (event: NewRewardsPerBlockEvent, ctx: X2y2Context) => void,
     filter?: NewRewardsPerBlockEventFilter | NewRewardsPerBlockEventFilter[]
-  ): X2y2Processor_ {
+  ): X2y2Processor {
     if (!filter) {
       filter = this.contract.filters.NewRewardsPerBlock(null, null, null, null);
     }
@@ -138,13 +137,23 @@ class X2y2Processor_ extends BaseProcessor<X2y2, X2y2ContractWrapper> {
   onWithdraw(
     handler: (event: WithdrawEvent, ctx: X2y2Context) => void,
     filter?: WithdrawEventFilter | WithdrawEventFilter[]
-  ): X2y2Processor_ {
+  ): X2y2Processor {
     if (!filter) {
       filter = this.contract.filters.Withdraw(null, null, null);
     }
     super.onEvent(handler, filter);
     return this;
   }
-}
 
-export const X2y2Processor = new X2y2Processor_("", "X2y2");
+  private static templateContract = X2y2__factory.connect("", getProvider(1));
+
+  static filters = X2y2Processor.templateContract.filters;
+
+  static bind(
+    address: string,
+    network: Networkish = 1,
+    name = "X2y2"
+  ): X2y2Processor {
+    return new X2y2Processor(address, name, network);
+  }
+}

@@ -43,17 +43,16 @@ class ERC20ContractWrapper extends ContractWrapper<ERC20> {
 
 export type ERC20Context = Context<ERC20, ERC20ContractWrapper>;
 
-class ERC20Processor_ extends BaseProcessor<ERC20, ERC20ContractWrapper> {
-  bind(address: string, network: Networkish = 1) {
+export class ERC20Processor extends BaseProcessor<ERC20, ERC20ContractWrapper> {
+  bindInternal(address: string, network: Networkish = 1) {
     const contract = ERC20__factory.connect(address, getProvider(network));
-    this.contract = new ERC20ContractWrapper(contract);
-    return this;
+    return new ERC20ContractWrapper(contract);
   }
 
   onApproval(
     handler: (event: ApprovalEvent, ctx: ERC20Context) => void,
     filter?: ApprovalEventFilter | ApprovalEventFilter[]
-  ): ERC20Processor_ {
+  ): ERC20Processor {
     if (!filter) {
       filter = this.contract.filters.Approval(null, null, null);
     }
@@ -64,13 +63,23 @@ class ERC20Processor_ extends BaseProcessor<ERC20, ERC20ContractWrapper> {
   onTransfer(
     handler: (event: TransferEvent, ctx: ERC20Context) => void,
     filter?: TransferEventFilter | TransferEventFilter[]
-  ): ERC20Processor_ {
+  ): ERC20Processor {
     if (!filter) {
       filter = this.contract.filters.Transfer(null, null, null);
     }
     super.onEvent(handler, filter);
     return this;
   }
-}
 
-export const ERC20Processor = new ERC20Processor_("", "ERC20");
+  private static templateContract = ERC20__factory.connect("", getProvider(1));
+
+  static filters = ERC20Processor.templateContract.filters;
+
+  static bind(
+    address: string,
+    network: Networkish = 1,
+    name = "ERC20"
+  ): ERC20Processor {
+    return new ERC20Processor(address, name, network);
+  }
+}

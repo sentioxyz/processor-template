@@ -10,7 +10,7 @@
     "postinstall": "yarn gen_abi"
   },
   "dependencies": {
-    "@sentio/sdk": "^0.0.8"
+    "@sentio/sdk": "^0.0.10"
   },
   "devDependencies": {
     "webpack": "^5.72.1",
