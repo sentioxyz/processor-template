@@ -7,8 +7,7 @@ X2y2Processor.bind('0xB329e39Ebefd16f40d38f07643652cE17Ca5Bac1')
     .startBlock(14201940)
     .onBlock(async function (_, ctx: X2y2Context) {
       const phase = (await ctx.contract.currentPhase()).toString()
-      const reward = await ctx.contract.rewardPerBlockForStaking()
-
+      const reward = Number((await ctx.contract.rewardPerBlockForStaking()).toBigInt() / BigInt(10 ** 18))
       ctx.meter.Histogram('reward_per_block').record(reward, { phase })
     })
 
@@ -22,6 +21,6 @@ ERC20Processor.bind('0x1e4ede388cbc9f4b5c79681b7f94d36a11abebc9')
     .onTransfer(handleTransfer, filter)
 
 async function handleTransfer(event: TransferEvent, ctx: ERC20Context) {
-  const val = Number(event.args.value.toBigInt()) / Math.pow(10, 18)
+  const val = Number(event.args.value.toBigInt() / BigInt(10 ** 18))
   ctx.meter.Counter('token').add(val)
 }

@@ -460,10 +460,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@sentio/sdk@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@sentio/sdk/-/sdk-0.0.10.tgz#d400edced1d6bf8e8876a55666b7b4c814f26487"
-  integrity sha512-QqgAYEZKrWbefOPYKwOF9ibcd5D12NMGRS+fRYQySt2CCMJg8rHvhY6ltcWj5ug5G/Bi9TwsyTBQ0Uep/xnS1A==
+"@sentio/sdk@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@sentio/sdk/-/sdk-0.0.18.tgz#9e3f1fd79bd71b8259055f0b338879215259bf83"
+  integrity sha512-FEM8r6KlYddo8isXMJvk9m8aaG6RjRbWIP91m2sLhj7coggo1D8xEMVXiz289BivKFYxNcH4O0sDEZHs+tRXaQ==
   dependencies:
     "@ethersproject/providers" "^5.6.7"
     "@typechain/ethers-v5" "^10.0.0"
