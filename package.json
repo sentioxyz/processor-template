@@ -4,13 +4,13 @@
   "scripts": {
     "compile": "tsc -p .",
     "start": "processor_server ./dist/lib",
-    "build": "yarn compile && yarn webpack",
+    "build": "yarn compile",
     "gen_abi": "typechain --target node_modules/@sentio/sdk/dist/target-ethers-sentio --out-dir src/types 'abis/*.json'",
-    "upload": "yarn build && sentio_cli upload ./dist/lib.js",
+    "upload": "sentio upload",
     "postinstall": "yarn gen_abi"
   },
   "dependencies": {
-    "@sentio/sdk": "^0.0.18"
+    "@sentio/sdk": "^0.1.0"
   },
   "devDependencies": {
     "webpack": "^5.72.1",
