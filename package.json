@@ -1,21 +1,16 @@
 {
-  "name": "@sentio/x2y2",
+  "name": "@sentio/processor-template",
   "version": "1.0.0",
   "scripts": {
-    "compile": "tsc -p .",
     "start": "processor_server ./dist/lib",
-    "build": "yarn compile",
-    "gen_abi": "typechain --target node_modules/@sentio/sdk/dist/target-ethers-sentio --out-dir src/types 'abis/*.json'",
+    "build": "sentio build",
     "upload": "sentio upload",
-    "postinstall": "yarn gen_abi"
+    "postinstall": "sentio gen"
   },
   "dependencies": {
-    "@sentio/sdk": "^0.1.0"
+    "@sentio/sdk": "^0.1.4"
   },
   "devDependencies": {
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2",
-    "ts-loader": "^9.3.0",
     "typescript": "^4.7.2"
   }
 }
